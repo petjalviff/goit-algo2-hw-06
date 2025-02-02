@@ -36,19 +36,19 @@ async def map_reduce(url):
         *[reduce_function(values) for values in shuffled_words])
     return dict(reduced_result)
 
-def visualize_top_words(result, top_n=10):
+def visualize_top_words(result, top_n=15):
     top_words = Counter(result).most_common(top_n)
     words, counts = zip(*top_words)
-    plt.figure(figsize=(12, 9))
-    plt.barh(words, counts, color="skyblue")
-    plt.xlabel("Frequency")
-    plt.ylabel("Words")
-    plt.title("Top 10 Most Frequent Words")
+    plt.figure(figsize=(10, 8))
+    plt.barh(words, counts, color="green")
+    plt.xlabel("Частота")
+    plt.ylabel("Слова")
+    plt.title("Топ 15 слів")
     plt.gca().invert_yaxis()
     plt.show()
 
 
 if __name__ == '__main__':
-    url = "https://drive.google.com/drive/folders/1OQlU-uh4krTRcIGtseDafaBoplYDNxWe"
+    url = "https://gutenberg.net.au/ebooks06/0608171.txt"
     res = asyncio.run(map_reduce(url))
     visualize_top_words(res)
